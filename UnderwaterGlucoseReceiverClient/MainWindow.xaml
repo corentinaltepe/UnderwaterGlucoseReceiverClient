@@ -9,7 +9,40 @@
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="Configuration">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" 
+                              SelectedIndex="0" ToolTip="Select COM Port">
+                        <ComboBoxItem Content="COM1"/>
+                        <ComboBoxItem Content="COM2"/>
+                    </ComboBox>
+                    <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="120"
+                              SelectedIndex="0" ToolTip="Select Modem Type">
+                        <ComboBoxItem Content="SM-1"/>
+                        <ComboBoxItem Content="New Castle Modem" IsEnabled="False"/>
+                    </ComboBox>
+                    <Label x:Name="label" Content="Configuration" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="120"
+                              SelectedIndex="0">
+                        <ComboBoxItem Content="T40"/>
+                        <ComboBoxItem Content="T41"/>
+                        <ComboBoxItem Content="..."/>
+                    </ComboBox>
+                    <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="120"
+                              SelectedIndex="0">
+                        <ComboBoxItem Content="S4"/>
+                        <ComboBoxItem Content="S5"/>
+                        <ComboBoxItem Content="..."/>
+                    </ComboBox>
+                    <ComboBox x:Name="comboBox4" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="120"
+                              SelectedIndex="0">
+                        <ComboBoxItem Content="R4"/>
+                        <ComboBoxItem Content="R5"/>
+                        <ComboBoxItem Content="..."/>
+                    </ComboBox>
+                    <Button x:Name="button" Content="Configure" HorizontalAlignment="Left" Margin="55,191,0,0" VerticalAlignment="Top" Width="75"/>
+                    <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="201" Margin="135,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" IsReadOnly="True"/>
+
+                </Grid>
             </TabItem>
             <TabItem Header="Glucose">
                 <Grid Background="#FFE5E5E5"/>
