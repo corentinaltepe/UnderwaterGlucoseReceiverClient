@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace UnderwaterGlucoseReceiverClient
 {
-    interface AcousticModemInterface
+    public interface IAcousticModem
     {
-        void Connect();
+        bool IsConnected { get;}
+        List<string> PortNames { get; }
+
+        void Connect(string portName);
         void Disconnect();
         void ConfigureModem(List<string> cmds);
+        List<string> ScanPortNames();
     }
 }

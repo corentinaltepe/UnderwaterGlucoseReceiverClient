@@ -22,14 +22,6 @@ namespace UnderwaterGlucoseReceiverClient
         /// </summary>
         /// <param name="data">Value sent by RF (2 bytes long)</param>
         /// <returns>Integer format of the same value</returns>
-        /*public static float dex_num_decoder(byte[] data)
-        {
-            Array.Reverse(data);
-            int usExponent = (data[0] >> 5) & 0x07;
-            int usMantissa = ((data[0] & 0x1F) << 8) | data[1];
-            return usMantissa << usExponent;
-        }*/
-
         public static float dex_num_decoder(byte[] data)
         {
             var intVal = BitConverter.ToInt32(new byte[] { data[0], data[1], 0, 0 }, 0);
