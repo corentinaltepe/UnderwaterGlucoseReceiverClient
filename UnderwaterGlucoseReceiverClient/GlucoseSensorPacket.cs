@@ -9,34 +9,51 @@ namespace UnderwaterGlucoseReceiverClient
     /*
      * Values sent by the glucose sensor through RF
      * */
-    class GlucoseSensorPacket
+    public class GlucoseSensorPacket
     {
-        private int raw;
-        public int Raw
-        {
-            get { return raw; }
-            set { raw = dex_num_decoder((UInt16)value); }
-        }
-
-        private int filtered;
-        public int Filtered
-        {
-            get { return filtered; }
-            set { filtered = dex_num_decoder((UInt16)value); }
-        }
+        public float Raw
+        { get; set; }
+        
+        public float Filtered
+        { get; set; }
 
         /// <summary>
-        /// Transforms the compressed value sent by RF into Integer format
+        /// Transforms the compressed value sent by RF into (16-bit) float format
         /// </summary>
         /// <param name="data">Value sent by RF (2 bytes long)</param>
         /// <returns>Integer format of the same value</returns>
-        private int dex_num_decoder(UInt16 value)
+        /*public static float dex_num_decoder(byte[] data)
         {
-            byte[] data = BitConverter.GetBytes(value);
-            if(BitConverter.IsLittleEndian) Array.Reverse(data);
+            Array.Reverse(data);
             int usExponent = (data[0] >> 5) & 0x07;
             int usMantissa = ((data[0] & 0x1F) << 8) | data[1];
             return usMantissa << usExponent;
+        }*/
+
+        public static float dex_num_decoder(byte[] data)
+        {
+            var intVal = BitConverter.ToInt32(new byte[] { data[0], data[1], 0, 0 }, 0);
+
+            int mant = intVal & 0x03ff;
+            int exp = intVal & 0x7c00;
+            if (exp == 0x7c00) exp = 0x3fc00;
+            else if (exp != 0)
+            {
+                exp += 0x1c000;
+                if (mant == 0 && exp > 0x1c400)
+                    return BitConverter.ToSingle(BitConverter.GetBytes((intVal & 0x8000) << 16 | exp << 13 | 0x3ff), 0);
+            }
+            else if (mant != 0)
+            {
+                exp = 0x1c400;
+                do
+                {
+                    mant <<= 1;
+                    exp -= 0x400;
+                } while ((mant & 0x400) == 0);
+                mant &= 0x3ff;
+            }
+            return BitConverter.ToSingle(BitConverter.GetBytes((intVal & 0x8000) << 16 | (exp | mant) << 13), 0);
         }
     }
 }

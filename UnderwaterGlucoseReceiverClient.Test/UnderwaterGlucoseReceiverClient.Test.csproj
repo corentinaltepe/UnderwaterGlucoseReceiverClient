@@ -50,8 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="GlucoseSensorPacket.Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnderwaterGlucoseReceiverClient\UnderwaterGlucoseReceiverClient.csproj">
+      <Project>{7ddfc4d1-dfd1-47e9-aa87-2bd2394240f5}</Project>
+      <Name>UnderwaterGlucoseReceiverClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
