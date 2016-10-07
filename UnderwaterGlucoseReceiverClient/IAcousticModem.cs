@@ -8,9 +8,12 @@ namespace UnderwaterGlucoseReceiverClient
 {
     public interface IAcousticModem
     {
+        event EventHandler GlucoseDataReceivedEvent;
+
         bool IsConnected { get;}
         List<string> PortNames { get; }
         List<GlucoseSensorPacket> ReceivedPackets { get; }
+        object ModemConfiguration { get; set; }
 
         void Connect(string portName);
         void Disconnect();

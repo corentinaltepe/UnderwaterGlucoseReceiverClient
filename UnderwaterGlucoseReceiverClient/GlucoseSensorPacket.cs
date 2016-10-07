@@ -17,6 +17,12 @@ namespace UnderwaterGlucoseReceiverClient
         public float Filtered
         { get; set; }
 
+        public GlucoseSensorPacket(float raw, float filtered)
+        {
+            this.Raw = raw;
+            this.Filtered = filtered;
+        }
+
         /// <summary>
         /// Transforms the compressed value sent by RF into (16-bit) float format
         /// </summary>
