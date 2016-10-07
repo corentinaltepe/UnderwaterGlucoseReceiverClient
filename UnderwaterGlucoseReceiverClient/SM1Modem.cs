@@ -9,12 +9,11 @@ namespace UnderwaterGlucoseReceiverClient
 {
     class SM1Modem : IAcousticModem
     {
-        // SM-1 baud is fixed to 4800
-        private static int SM1BAUD = 4800;
+        private static int SM1BAUD = 4800;              // SM-1 baud is fixed to 4800
+        private static int RECEIVEDBYTETHRESHOLD = 4;   // Number of bytes to be received before triggering a received event
 
         static SerialPort _serialPort;
-
-        private bool isConnected = false;
+        
         public bool IsConnected
         {
             get
@@ -31,7 +30,25 @@ namespace UnderwaterGlucoseReceiverClient
         {
             get
             {
-                portNames;
+                return portNames;
+            }
+        }
+
+        private List<GlucoseSensorPacket> receivedPackets;
+        public List<GlucoseSensorPacket> ReceivedPackets
+        {
+            get { return receivedPackets; }
+        }
+        public GlucoseSensorPacket readNextPacket
+        {
+            get
+            {
+                if (receivedPackets == null || receivedPackets.Count() == 0)
+                    return null;
+                GlucoseSensorPacket pckt = receivedPackets.First();
+                receivedPackets.RemoveAt(0);
+
+                return pckt;
             }
         }
 
@@ -49,11 +66,13 @@ namespace UnderwaterGlucoseReceiverClient
             // Timeouts of 500 ms
             _serialPort.ReadTimeout = 500;
             _serialPort.WriteTimeout = 500;
+            
+            _serialPort.ReceivedBytesThreshold = RECEIVEDBYTETHRESHOLD;
         }
 
         public void Disconnect()
         {
-            throw new NotImplementedException();
+            _serialPort.Close();
         }
 
         public List<string> ScanPortNames()
@@ -61,5 +80,6 @@ namespace UnderwaterGlucoseReceiverClient
             portNames = SerialPort.GetPortNames().OfType<string>().ToList();
             return PortNames;
         }
+
     }
 }

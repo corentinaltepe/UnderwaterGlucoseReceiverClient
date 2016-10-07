@@ -10,6 +10,7 @@ namespace UnderwaterGlucoseReceiverClient
     {
         bool IsConnected { get;}
         List<string> PortNames { get; }
+        List<GlucoseSensorPacket> ReceivedPackets { get; }
 
         void Connect(string portName);
         void Disconnect();
