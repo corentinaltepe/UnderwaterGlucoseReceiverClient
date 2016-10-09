@@ -56,6 +56,7 @@ namespace UnderwaterGlucoseReceiverClient.ViewModel
             return DateTime.Now.ToLongTimeString() + ": ";
         }
         
+
         #endregion
 
 

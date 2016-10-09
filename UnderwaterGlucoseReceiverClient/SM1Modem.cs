@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace UnderwaterGlucoseReceiverClient
 {
@@ -27,14 +28,33 @@ namespace UnderwaterGlucoseReceiverClient
             }
         }
 
-        private List<string> portNames;
-        public List<string> PortNames
+        private ObservableCollection<string> portNames;
+        public ObservableCollection<string> PortNames
         {
             get
             {
                 return portNames;
             }
+            set
+            {
+                portNames = value;
+
+                // Select the first item by default
+                if (SelectedPortName == null || SelectedPortName == "" || !portNames.Contains(SelectedPortName))
+                    SelectedPortName = portNames.First();
+            }
         }
+        private string _selectedPortName;
+        public string SelectedPortName
+        {
+            get { return _selectedPortName; }
+            set
+            {
+                // A new COM Port was selected
+                _selectedPortName = value;
+            }
+        }
+
 
         private List<GlucoseSensorPacket> receivedPackets;
 
@@ -78,6 +98,9 @@ namespace UnderwaterGlucoseReceiverClient
         {
             this.receivedPackets = new List<GlucoseSensorPacket>();
             this.ModemConfiguration = new SM1Configuration();
+
+            // Obtain the list of ports available
+            this.ScanPortNames();
         }
 
         #endregion
@@ -155,9 +178,15 @@ namespace UnderwaterGlucoseReceiverClient
             _serialPort.Close();
         }
 
-        public List<string> ScanPortNames()
+        public ObservableCollection<string> ScanPortNames()
         {
-            portNames = SerialPort.GetPortNames().OfType<string>().ToList();
+            List<string> ls = SerialPort.GetPortNames().OfType<string>().ToList();
+
+            ObservableCollection<string> obLs = new ObservableCollection<string>();
+            foreach (string st in ls)
+                obLs.Add(st);
+
+            PortNames = obLs;
             return PortNames;
         }
 

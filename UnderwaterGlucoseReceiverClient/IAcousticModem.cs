@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +12,13 @@ namespace UnderwaterGlucoseReceiverClient
         event EventHandler GlucoseDataReceivedEvent;
 
         bool IsConnected { get;}
-        List<string> PortNames { get; }
+        ObservableCollection<string> PortNames { get; }
         List<GlucoseSensorPacket> ReceivedPackets { get; }
         object ModemConfiguration { get; set; }
 
         void Connect(string portName);
         void Disconnect();
         void ConfigureModem(List<string> cmds);
-        List<string> ScanPortNames();
+        ObservableCollection<string> ScanPortNames();
     }
 }
