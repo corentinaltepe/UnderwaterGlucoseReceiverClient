@@ -77,6 +77,7 @@ namespace UnderwaterGlucoseReceiverClient
         public SM1Modem()
         {
             this.receivedPackets = new List<GlucoseSensorPacket>();
+            this.ModemConfiguration = new SM1Configuration();
         }
 
         #endregion

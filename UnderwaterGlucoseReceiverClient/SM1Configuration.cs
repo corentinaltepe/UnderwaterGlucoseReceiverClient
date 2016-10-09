@@ -12,47 +12,57 @@ namespace UnderwaterGlucoseReceiverClient
         public static int ThresholdMax = 99;
         public static int ThresholdMin = 35;
 
-        int thresholdValue;
-        int ThresholdValue
+        public int threshold;
+        public int Threshold
         {
-            get { return thresholdValue; }
+            get { return threshold; }
 
             set
             {
                 if (value < ThresholdMin)
-                    thresholdValue = ThresholdMin;
+                    threshold = ThresholdMin;
                 else if (value > ThresholdMax)
-                    thresholdValue = ThresholdMax;
+                    threshold = ThresholdMax;
                 else
-                    thresholdValue = value;
+                    threshold = value;
             }
         }
-        int SValue
+        public int S
         { get; set; }
-        int RValue
+        public int R
         { get; set; }
 
-        string ThresholdText
+        public string ThresholdText
         {
-            get { return "T" + ThresholdValue.ToString(); }
+            get { return "T" + Threshold.ToString(); }
         }
-        string SText
+        public string SText
         {
-            get { return "S" + SValue.ToString(); }
+            get { return "S" + S.ToString(); }
         }
-        string RText
+        public string RText
         {
-            get { return "R" + RValue.ToString(); }
+            get { return "R" + R.ToString(); }
         }
-
+        public List<string> Commands
+        {
+            get
+            {
+                List<string> lstr = new List<string>();
+                lstr.Add(ThresholdText);
+                lstr.Add(SText);
+                lstr.Add(RText);
+                return lstr;
+            }
+        }
         #endregion
 
         public SM1Configuration()
         {
             // Default values
-            this.ThresholdValue = 40;
-            this.SValue = 4;
-            this.RValue = 4;
+            this.Threshold = 40;
+            this.S = 4;
+            this.R = 4;
         }
     }
 }
