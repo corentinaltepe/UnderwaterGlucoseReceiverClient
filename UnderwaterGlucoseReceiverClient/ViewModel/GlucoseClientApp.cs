@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace UnderwaterGlucoseReceiverClient
+namespace UnderwaterGlucoseReceiverClient.ViewModel
 {
     public class GlucoseClientApp : INotifyPropertyChanged
     {
