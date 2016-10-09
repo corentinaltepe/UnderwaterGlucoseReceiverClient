@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnderwaterGlucoseReceiverClient"
+        xmlns:l="clr-namespace:UnderwaterGlucoseReceiverClient.ViewModel"
         mc:Ignorable="d"
         Title="Glucose Receiver" Height="350" Width="525">
     <Grid>
@@ -11,10 +12,9 @@
             <TabItem Header="Configuration">
                 <Grid Background="#FFE5E5E5">
                     <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" 
-                              SelectedIndex="0" ToolTip="Select COM Port">
-                        <ComboBoxItem Content="COM1"/>
-                        <ComboBoxItem Content="COM2"/>
-                    </ComboBox>
+                              ToolTip="Select COM Port" ItemsSource="{Binding ModemInterface.PortNames}"
+                              SelectedItem="{Binding ModemInterface.SelectedPortName}"/>
+
                     <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="120"
                               SelectedIndex="0" ToolTip="Select Modem Type">
                         <ComboBoxItem Content="SM-1"/>
