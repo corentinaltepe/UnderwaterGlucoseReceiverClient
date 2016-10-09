@@ -18,7 +18,7 @@ namespace UnderwaterGlucoseReceiverClient
         // Makes the Binding between the View and the ViewModel
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var app = new GlucoseClientApp();
+            var app = new MainWindow();
             var context = new GlucoseClientApp(new MvvmDialogs.DialogService());
             app.DataContext = context;
             app.Show();
@@ -28,7 +28,8 @@ namespace UnderwaterGlucoseReceiverClient
                 FileInfo file = new FileInfo(e.Args[0]);
                 if (file.Exists) //make sure it's actually a file
                 {
-                    ((GlucoseClientApp)app.DataContext).OpenFromJDP(file.FullName);
+                    // Opening from a file - TODO
+                    //((GlucoseClientApp)app.DataContext).OpenFromJDP(file.FullName);
                     //throw new NotImplementedException();
                 }
             }

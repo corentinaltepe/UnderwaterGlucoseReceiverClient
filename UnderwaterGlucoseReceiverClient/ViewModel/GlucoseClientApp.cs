@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvvmDialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,26 +11,35 @@ namespace UnderwaterGlucoseReceiverClient.ViewModel
 {
     public class GlucoseClientApp : INotifyPropertyChanged
     {
+        #region Parameters
         public IAcousticModem ModemInterface
         { get; set; }
+
+        // IDialogService is used to display dialogs directly from the ViewModel
+        private readonly IDialogService dialogService;
 
         // Content of the console to be displayed on the config Tab
         // Updated at every new incoming data from sensor, connection event, etc
         private string console;
-
-
         public string Console
         {
             get { return console; }
             set { console = value; }
         }
 
-        public GlucoseClientApp()
+        #endregion
+
+        #region Constructors
+        public GlucoseClientApp(IDialogService dialogService)
         {
+            this.dialogService = dialogService;
+
             // By default
             this.ModemInterface = new SM1Modem();
             this.Console = "";
         }
+
+        #endregion
 
         #region Function & Methods
         private void AddTextToConsole(string text)
