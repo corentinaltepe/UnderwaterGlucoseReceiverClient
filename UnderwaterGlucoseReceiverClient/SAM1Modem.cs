@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace UnderwaterGlucoseReceiverClient
 {
-    class SM1Modem : IAcousticModem
+    class SAM1Modem : IAcousticModem
     {
         private static int SM1BAUD = 4800;              // SM-1 baud is fixed to 4800
         private static int RECEIVEDBYTETHRESHOLD = 4;   // Number of bytes to be received before triggering a received event
@@ -77,7 +77,7 @@ namespace UnderwaterGlucoseReceiverClient
             }
         }
 
-        private SM1Configuration modemConfiguration;
+        private SAM1Configuration modemConfiguration;
         public object ModemConfiguration
         {
             get
@@ -87,17 +87,17 @@ namespace UnderwaterGlucoseReceiverClient
 
             set
             {
-                modemConfiguration = (SM1Configuration)value;
+                modemConfiguration = (SAM1Configuration)value;
             }
         }
 
         #endregion
 
         #region Constructors
-        public SM1Modem()
+        public SAM1Modem()
         {
             this.receivedPackets = new List<GlucoseSensorPacket>();
-            this.ModemConfiguration = new SM1Configuration();
+            this.ModemConfiguration = new SAM1Configuration();
 
             // Obtain the list of ports available
             this.ScanPortNames();

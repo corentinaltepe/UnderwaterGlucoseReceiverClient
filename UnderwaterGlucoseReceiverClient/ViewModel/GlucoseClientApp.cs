@@ -35,7 +35,7 @@ namespace UnderwaterGlucoseReceiverClient.ViewModel
             this.dialogService = dialogService;
 
             // By default
-            this.ModemInterface = new SM1Modem();
+            this.ModemInterface = new SAM1Modem();
             this.Console = "";
         }
 
