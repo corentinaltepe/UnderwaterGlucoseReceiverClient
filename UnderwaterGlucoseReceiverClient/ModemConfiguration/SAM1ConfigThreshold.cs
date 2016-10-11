@@ -5,58 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnderwaterGlucoseReceiverClient 
+namespace UnderwaterGlucoseReceiverClient.ModemConfiguration
 {
-    public class SAM1ConfigThreshold : INotifyPropertyChanged
+    public class SAM1ConfigThreshold : SAM1ConfigSpeed
     {
-
         public static int ThresholdMax = 99;
         public static int ThresholdMin = 01;
 
-        private int val;
-        public int Value
-        {
-            get { return val; }
-
-            set
-            {
-                if (value < ThresholdMin)
-                    val = ThresholdMin;
-                else if (value > ThresholdMax)
-                    val = ThresholdMax;
-                else
-                    val = value;
-
-                OnPropertyChanged("Value");
-            }
-        }
-        public string Text
+        // Redefinition of Text for Threshold (T01 instead of T1)
+        public new string Text
         {
             get
             {
-                string str = "T";
+                string str = DisplayLetter;
                 if (Value < 10) str += "0";
                 return str + Value.ToString();
             }
         }
 
-        public SAM1ConfigThreshold(int i)
+        public SAM1ConfigThreshold(int i):base(i)
         {
+            this.ValueMin = ThresholdMin;
+            this.ValueMax = ThresholdMax;
+            this.DisplayLetter = "T";
             this.Value = i;
         }
-
-        #region Events
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        #endregion
-
-
     }
 }

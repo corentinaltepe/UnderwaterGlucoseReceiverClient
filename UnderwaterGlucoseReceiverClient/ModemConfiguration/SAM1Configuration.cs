@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnderwaterGlucoseReceiverClient.ModemConfiguration;
 
 namespace UnderwaterGlucoseReceiverClient
 {
@@ -79,8 +80,10 @@ namespace UnderwaterGlucoseReceiverClient
         public SAM1Configuration()
         {
             this.ListOfThresholds = new List<SAM1ConfigThreshold>();
-            for (int i =SAM1ConfigThreshold.ThresholdMin; i <= SAM1ConfigThreshold.ThresholdMax; i++)
+            for (int i = SAM1ConfigThreshold.ThresholdMin; i <= SAM1ConfigThreshold.ThresholdMax; i++)
+            {
                 this.ListOfThresholds.Add(new SAM1ConfigThreshold(i));
+            }
 
             // Default values
             Threshold = ListOfThresholds[39]; // T40
