@@ -10,30 +10,30 @@ namespace UnderwaterGlucoseReceiverClient.Test
         [TestMethod]
         public void ThresholdTextTest()
         {
-            SAM1Configuration config = new SAM1Configuration();
+            SAM1ConfigThreshold config = new SAM1ConfigThreshold();
 
-            config.Threshold = 1;
-            Assert.AreEqual("T01", config.ThresholdText);
-
-
-            config.Threshold = 9;
-            Assert.AreEqual("T09", config.ThresholdText);
+            config.Value = 1;
+            Assert.AreEqual("T01", config.Text);
 
 
-            config.Threshold = 10;
-            Assert.AreEqual("T10", config.ThresholdText);
+            config.Value = 9;
+            Assert.AreEqual("T09", config.Text);
 
 
-            config.Threshold = 99;
-            Assert.AreEqual("T99", config.ThresholdText);
+            config.Value = 10;
+            Assert.AreEqual("T10", config.Text);
 
 
-            config.Threshold = -1;
-            Assert.AreEqual("T01", config.ThresholdText);
+            config.Value = 99;
+            Assert.AreEqual("T99", config.Text);
 
 
-            config.Threshold = 100;
-            Assert.AreEqual("T99", config.ThresholdText);
+            config.Value = -1;
+            Assert.AreEqual("T01", config.Text);
+
+
+            config.Value = 100;
+            Assert.AreEqual("T99", config.Text);
         }
 
         [TestMethod]
@@ -67,15 +67,7 @@ namespace UnderwaterGlucoseReceiverClient.Test
 
         }
 
-        [TestMethod]
-        public void ValidTTextTest()
-        {
-            List<string> res = SAM1Configuration.ValidTTexts;
-
-            Assert.AreEqual("T01", res[0]);
-            Assert.AreEqual("T10", res[9]);
-            Assert.AreEqual("T99", res[98]);
-        }
+        
 
     }
 }

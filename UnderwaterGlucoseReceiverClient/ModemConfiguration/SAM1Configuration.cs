@@ -9,31 +9,20 @@ namespace UnderwaterGlucoseReceiverClient
     public class SAM1Configuration
     {
         #region Parameters
-        public static int ThresholdMax = 99;
-        public static int ThresholdMin = 01;
-
         public static int SMin = 4;
         public static int SMax = 6;
 
         public static int RMin = 4;
         public static int RMax = 6;
 
+        // Selected Threshold
+        public SAM1ConfigThreshold Threshold
+        { get; set; }
 
-        public int threshold;
-        public int Threshold
-        {
-            get { return threshold; }
+        // List of Thresholds available
+        public List<SAM1ConfigThreshold> ListOfThresholds
+        { get; set; }
 
-            set
-            {
-                if (value < ThresholdMin)
-                    threshold = ThresholdMin;
-                else if (value > ThresholdMax)
-                    threshold = ThresholdMax;
-                else
-                    threshold = value;
-            }
-        }
         private int s;
         public int S
         {
@@ -64,14 +53,7 @@ namespace UnderwaterGlucoseReceiverClient
                     r = value;
             }
         }
-
-        public string ThresholdText
-        {
-            get
-            {
-                return ToThresholdText(this.Threshold);
-            }
-        }
+        
         public string SText
         {
             get { return "S" + S.ToString(); }
@@ -85,41 +67,30 @@ namespace UnderwaterGlucoseReceiverClient
             get
             {
                 List<string> lstr = new List<string>();
-                lstr.Add(ThresholdText);
+                lstr.Add(Threshold.Text);
                 lstr.Add(SText);
                 lstr.Add(RText);
                 return lstr;
             }
         }
         
-        public static List<string> ValidTTexts
-        {
-            get
-            {
-                List<string> ls = new List<string>();
-                for(int i = ThresholdMin; i <= ThresholdMax; i++)
-                    ls.Add(ToThresholdText(i));
-
-                return ls;
-            }
-        }
         #endregion
 
         public SAM1Configuration()
         {
+            this.ListOfThresholds = new List<SAM1ConfigThreshold>();
+            for (int i =SAM1ConfigThreshold.ThresholdMin; i <= SAM1ConfigThreshold.ThresholdMax; i++)
+                this.ListOfThresholds.Add(new SAM1ConfigThreshold(i));
+
             // Default values
-            this.Threshold = 40;
+            Threshold = ListOfThresholds[39]; // T40
             this.S = 4;
             this.R = 4;
         }
 
         #region Methods & Function
-        private static string ToThresholdText(int thresholdValue)
-        {
-            string str = "T";
-            if (thresholdValue < 10) str += "0";
-            return str + thresholdValue.ToString();
-        }
+        
+
         #endregion
     }
 }

@@ -7,6 +7,14 @@
         xmlns:l="clr-namespace:UnderwaterGlucoseReceiverClient.ViewModel"
         mc:Ignorable="d"
         Title="Glucose Receiver" Height="350" Width="525">
+
+    <Window.Resources>
+        <DataTemplate x:Key="ThresholdComboBoxTemplate">
+            <Label Padding="0" Content="{Binding ThresholdText}"/>
+        </DataTemplate>
+    </Window.Resources>
+
+
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="Configuration">
@@ -14,19 +22,18 @@
                     <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" 
                               ToolTip="Select COM Port" ItemsSource="{Binding ModemInterface.PortNames}"
                               SelectedItem="{Binding ModemInterface.SelectedPortName}"/>
-
                     <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="120"
                               SelectedIndex="0" ToolTip="Select Modem Type">
                         <ComboBoxItem Content="SM-1"/>
                         <ComboBoxItem Content="New Castle Modem" IsEnabled="False"/>
                     </ComboBox>
+             
                     <Label x:Name="label" Content="Configuration" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="120"
-                              SelectedIndex="0">
-                        <ComboBoxItem Content="T40"/>
-                        <ComboBoxItem Content="T41"/>
-                        <ComboBoxItem Content="..."/>
-                    </ComboBox>
+                              ItemsSource="{Binding ModemInterface.ModemConfiguration.ListOfThresholds}"
+                              SelectedItem="{Binding ModemInterface.ModemConfiguration.Threshold}"
+                              DisplayMemberPath="Text"/>
+
                     <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="120"
                               SelectedIndex="0">
                         <ComboBoxItem Content="S4"/>
