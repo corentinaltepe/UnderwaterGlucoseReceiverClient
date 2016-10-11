@@ -7,40 +7,60 @@
         xmlns:l="clr-namespace:UnderwaterGlucoseReceiverClient.ViewModel"
         mc:Ignorable="d"
         Title="Glucose Receiver" Height="350" Width="525">
+
+    <Window.Resources>
+        <DataTemplate x:Key="ThresholdComboBoxTemplate">
+            <Label Padding="0" Content="{Binding ThresholdText}"/>
+        </DataTemplate>
+    </Window.Resources>
+
+
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <TabItem Header="Configuration">
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" 
-                              ToolTip="Select COM Port" ItemsSource="{Binding ModemInterface.PortNames}"
-                              SelectedItem="{Binding ModemInterface.SelectedPortName}"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                    <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="120"
-                              SelectedIndex="0" ToolTip="Select Modem Type">
-                        <ComboBoxItem Content="SM-1"/>
-                        <ComboBoxItem Content="New Castle Modem" IsEnabled="False"/>
-                    </ComboBox>
-                    <Label x:Name="label" Content="Configuration" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="120"
-                              SelectedIndex="0">
-                        <ComboBoxItem Content="T40"/>
-                        <ComboBoxItem Content="T41"/>
-                        <ComboBoxItem Content="..."/>
-                    </ComboBox>
-                    <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="120"
-                              SelectedIndex="0">
-                        <ComboBoxItem Content="S4"/>
-                        <ComboBoxItem Content="S5"/>
-                        <ComboBoxItem Content="..."/>
-                    </ComboBox>
-                    <ComboBox x:Name="comboBox4" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="120"
-                              SelectedIndex="0">
-                        <ComboBoxItem Content="R4"/>
-                        <ComboBoxItem Content="R5"/>
-                        <ComboBoxItem Content="..."/>
-                    </ComboBox>
-                    <Button x:Name="button" Content="Configure" HorizontalAlignment="Left" Margin="55,191,0,0" VerticalAlignment="Top" Width="75"/>
-                    <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="201" Margin="135,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" IsReadOnly="True"/>
+                    <Grid Grid.Column="0" Background="#FFE5E5E5">
+                        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" 
+                                  ToolTip="Select COM Port" ItemsSource="{Binding ModemInterface.PortNames}"
+                                  SelectedItem="{Binding ModemInterface.SelectedPortName}"/>
+                        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="120"
+                                  SelectedIndex="0" ToolTip="Select Modem Type">
+                            <ComboBoxItem Content="SM-1"/>
+                            <ComboBoxItem Content="New Castle Modem" IsEnabled="False"/>
+                        </ComboBox>
+             
+                        <Label x:Name="label" Content="Configuration" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="120"
+                                  ItemsSource="{Binding ModemInterface.ModemConfiguration.ListOfThresholds}"
+                                  SelectedItem="{Binding ModemInterface.ModemConfiguration.Threshold}"
+                                  DisplayMemberPath="Text"/>
+                        <ComboBox x:Name="comboBox3" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="120"
+                                  SelectedIndex="0"
+                                  ItemsSource="{Binding ModemInterface.ModemConfiguration.ListOfRs}"
+                                  SelectedItem="{Binding ModemInterface.ModemConfiguration.R}"
+                                  DisplayMemberPath="Text"/>
+                        <ComboBox x:Name="comboBox4" HorizontalAlignment="Left" Margin="10,164,0,0" VerticalAlignment="Top" Width="120"
+                                  SelectedIndex="0"
+                                  ItemsSource="{Binding ModemInterface.ModemConfiguration.ListOfSs}"
+                                  SelectedItem="{Binding ModemInterface.ModemConfiguration.S}"
+                                  DisplayMemberPath="Text"/>
+                        <Button x:Name="button" Content="Configure" HorizontalAlignment="Left" Margin="55,191,0,0" VerticalAlignment="Top" Width="75"
+                                Command="{Binding ConfigureButtonClicked}"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Background="#FFE5E5E5">
+                        <TextBox x:Name="textBox" Margin="10" IsReadOnly="True" 
+                                Text="{Binding Console}" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"/>
+                    </Grid>
+                    
+                    
+                    
+                    
 
                 </Grid>
             </TabItem>

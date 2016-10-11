@@ -60,9 +60,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="ModemConfiguration\SAM1ConfigReadSpeed.cs" />
+    <Compile Include="ModemConfiguration\SAM1ConfigSendSpeed.cs" />
+    <Compile Include="ModemConfiguration\SAM1ConfigSpeed.cs" />
+    <Compile Include="ModemConfiguration\SAM1ConfigThreshold.cs" />
     <Compile Include="ViewModel\GlucoseClientApp.cs" />
-    <Compile Include="SM1Configuration.cs" />
-    <Compile Include="SM1Modem.cs" />
+    <Compile Include="ModemConfiguration\SAM1Configuration.cs" />
+    <Compile Include="ModemConfiguration\SAM1Modem.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
