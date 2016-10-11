@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using UnderwaterGlucoseReceiverClient.ModemConfiguration;
+using System.Linq;
 
 namespace UnderwaterGlucoseReceiverClient.Test
 {
@@ -10,7 +12,8 @@ namespace UnderwaterGlucoseReceiverClient.Test
         [TestMethod]
         public void ThresholdTextTest()
         {
-            SAM1ConfigThreshold config = new SAM1ConfigThreshold();
+            SAM1ConfigThreshold config = new SAM1ConfigThreshold(0);
+            Assert.AreEqual("T01", config.Text);
 
             config.Value = 1;
             Assert.AreEqual("T01", config.Text);
@@ -39,35 +42,56 @@ namespace UnderwaterGlucoseReceiverClient.Test
         [TestMethod]
         public void RSTextTest()
         {
-            SAM1Configuration config = new SAM1Configuration();
+            SAM1ConfigReadSpeed R = new SAM1ConfigReadSpeed(0);
+            Assert.AreEqual("R4", R.Text);
 
-            config.R = 3;
-            Assert.AreEqual("R4", config.RText);
+            R.Value = 3;
+            Assert.AreEqual("R4", R.Text);
 
-            config.R = 4;
-            Assert.AreEqual("R4", config.RText);
+            R.Value = 4;
+            Assert.AreEqual("R4", R.Text);
 
-            config.R = 6;
-            Assert.AreEqual("R6", config.RText);
-            
-            config.R = 7;
-            Assert.AreEqual("R6", config.RText);
+            R.Value = 6;
+            Assert.AreEqual("R6", R.Text);
 
-            config.S = 3;
-            Assert.AreEqual("S4", config.SText);
-
-            config.S = 4;
-            Assert.AreEqual("S4", config.SText);
-
-            config.S = 6;
-            Assert.AreEqual("S6", config.SText);
-
-            config. S= 7;
-            Assert.AreEqual("S6", config.SText);
-
+            R.Value = 7;
+            Assert.AreEqual("R6", R.Text);
         }
 
-        
+        [TestMethod]
+        public void STextTest()
+        {
+            SAM1ConfigSendSpeed S = new SAM1ConfigSendSpeed(0);
+            S.Value = 3;
+            Assert.AreEqual("S4", S.Text);
 
+            S.Value = 4;
+            Assert.AreEqual("S4", S.Text);
+
+            S.Value = 6;
+            Assert.AreEqual("S6", S.Text);
+
+            S.Value = 7;
+            Assert.AreEqual("S6", S.Text);
+        }
+
+        [TestMethod]
+        public void ConfigListsTest()
+        {
+            SAM1Configuration config = new SAM1Configuration();
+
+            Assert.AreEqual(99, config.ListOfThresholds.Count);
+            Assert.AreEqual(3, config.ListOfRs.Count);
+            Assert.AreEqual(3, config.ListOfSs.Count);
+
+            Assert.AreEqual("T01", config.ListOfThresholds.First().Text);
+            Assert.AreEqual("R4", config.ListOfRs.First().Text);
+            Assert.AreEqual("S4", config.ListOfSs.First().Text);
+
+            Assert.AreEqual("T99", config.ListOfThresholds.Last().Text);
+            Assert.AreEqual("R6", config.ListOfRs.Last().Text);
+            Assert.AreEqual("S6", config.ListOfSs.Last().Text);
+
+        }
     }
 }
