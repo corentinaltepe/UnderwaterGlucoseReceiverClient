@@ -18,7 +18,7 @@ namespace UnderwaterGlucoseReceiverClient
 
         void Connect(string portName);
         void Disconnect();
-        void ConfigureModem(List<string> cmds);
+        void ConfigureModem();
         ObservableCollection<string> ScanPortNames();
     }
 }

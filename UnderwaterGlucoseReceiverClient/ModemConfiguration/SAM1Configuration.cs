@@ -31,9 +31,7 @@ namespace UnderwaterGlucoseReceiverClient
         { get; set; }
         public List<SAM1ConfigSendSpeed> ListOfSs
         { get; set; }
-
-
-
+        
         public List<string> Commands
         {
             get

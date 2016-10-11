@@ -24,7 +24,11 @@ namespace UnderwaterGlucoseReceiverClient.ViewModel
         public string Console
         {
             get { return console; }
-            set { console = value; }
+            set
+            {
+                console = value;
+                OnPropertyChanged("Console");
+            }
         }
 
         #endregion
@@ -73,22 +77,31 @@ namespace UnderwaterGlucoseReceiverClient.ViewModel
         }
 
         // Event generated from the View
-        public ICommand ComPortComboboxSelectionChanged
-        { get { return new DelegateCommand(OnComPortComboboxSelectionChanged, CanComPortComboboxSelectionChange); } }
+        public ICommand ConfigureButtonClicked
+        { get { return new DelegateCommand(OnConfigureButtonClick, CanConfigureButtonClicked); } }
 
         private bool CanAlways(object context)
         {
             return true;
         }
-        private bool CanComPortComboboxSelectionChange(object context)
+        private bool CanConfigureButtonClicked(object context)
         {
-            //this is called to evaluate whether FuncToCall can be called
-            //for example you can return true or false based on some validation logic
-            return true;
+            if (ModemInterface != null && ModemInterface.IsConnected)
+                return true;
+            return false;
         }
-        private void OnComPortComboboxSelectionChanged(object context)
+        private void OnConfigureButtonClick(object context)
         {
-            
+            AddTextToConsole("Configuring Modem");
+            try
+            {
+                ModemInterface.ConfigureModem();
+                AddTextToConsole("Configuration Finished");
+            }
+            catch
+            {
+                AddTextToConsole("Configuration Failed!");
+            }
         }
         #endregion
 

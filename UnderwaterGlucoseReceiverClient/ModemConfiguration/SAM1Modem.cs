@@ -52,6 +52,9 @@ namespace UnderwaterGlucoseReceiverClient
             {
                 // A new COM Port was selected
                 _selectedPortName = value;
+
+                // Start a connection
+                this.Connect(_selectedPortName);
             }
         }
 
@@ -107,10 +110,12 @@ namespace UnderwaterGlucoseReceiverClient
 
         #region Methods & Functions
 
-        public void ConfigureModem(List<string> cmds)
+        public void ConfigureModem()
         {
             if (!this.IsConnected)
                 return;
+
+            List<string> cmds = this.modemConfiguration.Commands;
 
             // Suspend event during configuration
             _serialPort.DataReceived -= _serialPort_DataReceived;
